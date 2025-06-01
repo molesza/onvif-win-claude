@@ -1,0 +1,16 @@
+[Unit]
+Description=Create virtual network interfaces for ONVIF server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/molesza/onvif-test/setup-virtual-networks.sh
+ExecStartPost=/home/molesza/onvif-test/request-dhcp.sh
+ExecStartPost=/usr/sbin/sysctl -w net.ipv4.conf.all.arp_ignore=1
+ExecStartPost=/usr/sbin/sysctl -w net.ipv4.conf.all.arp_announce=2
+ExecStop=/home/molesza/onvif-test/cleanup-virtual-networks.sh
+
+[Install]
+WantedBy=multi-user.target

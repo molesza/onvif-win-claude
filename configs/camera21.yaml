@@ -1,0 +1,29 @@
+onvif:
+  - mac: a2:a2:a2:a2:00:15
+    ports:
+      server: 8101
+      rtsp: 8554
+      snapshot: 8580
+    name: VideoSourceConfig_Channel21
+    uuid: 9dc3c53e-5c08-4146-9de9-23f2fa7d7280
+    highQuality:
+      rtsp: /cam/realmonitor?channel=21&subtype=0&unicast=true&proto=Onvif
+      snapshot: /onvifsnapshot/media_service/snapshot?channel=21&subtype=0
+      width: 960
+      height: 1080
+      framerate: 15
+      bitrate: 1024
+      quality: 4
+    lowQuality:
+      rtsp: /cam/realmonitor?channel=21&subtype=1&unicast=true&proto=Onvif
+      snapshot: /onvifsnapshot/media_service/snapshot?channel=21&subtype=1
+      width: 352
+      height: 288
+      framerate: 7
+      bitrate: 160
+      quality: 1
+    target:
+      hostname: 192.168.6.201
+      ports:
+        rtsp: 554
+        snapshot: 80

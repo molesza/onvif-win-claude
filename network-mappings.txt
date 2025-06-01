@@ -1,0 +1,38 @@
+# Virtual Network Interface Mappings
+# Generated on: 2025-01-06
+# 
+# Add these as DHCP reservations in your router/DHCP server
+# Format: Interface Name | MAC Address | Current IP
+#
+onvif-proxy-1  | a2:a2:a2:a2:00:01 | 192.168.6.176
+onvif-proxy-2  | a2:a2:a2:a2:00:02 | 192.168.6.177
+onvif-proxy-3  | a2:a2:a2:a2:00:03 | 192.168.6.178
+onvif-proxy-4  | a2:a2:a2:a2:00:04 | 192.168.6.179
+onvif-proxy-5  | a2:a2:a2:a2:00:05 | 192.168.6.180
+onvif-proxy-6  | a2:a2:a2:a2:00:06 | 192.168.6.181
+onvif-proxy-7  | a2:a2:a2:a2:00:07 | 192.168.6.182
+onvif-proxy-8  | a2:a2:a2:a2:00:08 | 192.168.6.183
+onvif-proxy-9  | a2:a2:a2:a2:00:09 | 192.168.6.184
+onvif-proxy-10 | a2:a2:a2:a2:00:0a | 192.168.6.185
+onvif-proxy-11 | a2:a2:a2:a2:00:0b | 192.168.6.186
+onvif-proxy-12 | a2:a2:a2:a2:00:0c | 192.168.6.187
+onvif-proxy-13 | a2:a2:a2:a2:00:0d | 192.168.6.188
+onvif-proxy-14 | a2:a2:a2:a2:00:0e | 192.168.6.189
+onvif-proxy-15 | a2:a2:a2:a2:00:0f | 192.168.6.190
+onvif-proxy-16 | a2:a2:a2:a2:00:10 | 192.168.6.191
+onvif-proxy-17 | a2:a2:a2:a2:00:11 | 192.168.6.192
+onvif-proxy-18 | a2:a2:a2:a2:00:12 | 192.168.6.193
+onvif-proxy-19 | a2:a2:a2:a2:00:13 | 192.168.6.194
+onvif-proxy-20 | a2:a2:a2:a2:00:14 | 192.168.6.195
+onvif-proxy-21 | a2:a2:a2:a2:00:15 | 192.168.6.196
+onvif-proxy-22 | a2:a2:a2:a2:00:16 | 192.168.6.197
+onvif-proxy-23 | a2:a2:a2:a2:00:17 | 192.168.6.198
+onvif-proxy-24 | a2:a2:a2:a2:00:18 | 192.168.6.199
+onvif-proxy-25 | a2:a2:a2:a2:00:19 | 192.168.6.22
+onvif-proxy-26 | a2:a2:a2:a2:00:1a | 192.168.6.25
+onvif-proxy-27 | a2:a2:a2:a2:00:1b | 192.168.6.33
+onvif-proxy-28 | a2:a2:a2:a2:00:1c | 192.168.6.66
+onvif-proxy-29 | a2:a2:a2:a2:00:1d | 192.168.6.19
+onvif-proxy-30 | a2:a2:a2:a2:00:1e | 192.168.6.27
+onvif-proxy-31 | a2:a2:a2:a2:00:1f | 192.168.6.28
+onvif-proxy-32 | a2:a2:a2:a2:00:20 | 192.168.6.67

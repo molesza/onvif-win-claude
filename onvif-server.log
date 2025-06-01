@@ -1,0 +1,14 @@
+13:51:02.226 INFO  Starting master discovery service...
+13:51:02.229 INFO  Starting discovery on interface: all interfaces
+13:51:02.232 INFO  Master discovery service started!
+13:51:02.232 INFO  
+13:51:02.234 INFO  Starting virtual onvif server for VideoSourceConfig_Channel1 on 192.168.6.176:8081 ...
+13:51:02.238 INFO    Started!
+13:51:02.238 INFO  
+13:51:02.238 INFO  Starting tcp proxy from port 8554 to 192.168.6.201:554 ...
+13:51:02.244 INFO    Started!
+13:51:02.244 INFO  
+13:51:02.244 INFO  Starting tcp proxy from port 8580 to 192.168.6.201:80 ...
+13:51:02.244 INFO    Started!
+13:51:02.244 INFO  
+13:51:02.251 INFO  Master discovery service started on port 3702

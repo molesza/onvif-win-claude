@@ -1,0 +1,333 @@
+version: '3.8'
+
+services:
+  camera1:
+    build: .
+    container_name: onvif-camera1
+    mac_address: a2:a2:a2:a2:00:01
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera1.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera2:
+    build: .
+    container_name: onvif-camera2
+    mac_address: a2:a2:a2:a2:00:02
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera2.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera3:
+    build: .
+    container_name: onvif-camera3
+    mac_address: a2:a2:a2:a2:00:03
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera3.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera4:
+    build: .
+    container_name: onvif-camera4
+    mac_address: a2:a2:a2:a2:00:04
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera4.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera5:
+    build: .
+    container_name: onvif-camera5
+    mac_address: a2:a2:a2:a2:00:05
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera5.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera6:
+    build: .
+    container_name: onvif-camera6
+    mac_address: a2:a2:a2:a2:00:06
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera6.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera7:
+    build: .
+    container_name: onvif-camera7
+    mac_address: a2:a2:a2:a2:00:07
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera7.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera8:
+    build: .
+    container_name: onvif-camera8
+    mac_address: a2:a2:a2:a2:00:08
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera8.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera9:
+    build: .
+    container_name: onvif-camera9
+    mac_address: a2:a2:a2:a2:00:09
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera9.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera10:
+    build: .
+    container_name: onvif-camera10
+    mac_address: a2:a2:a2:a2:00:0a
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera10.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera11:
+    build: .
+    container_name: onvif-camera11
+    mac_address: a2:a2:a2:a2:00:0b
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera11.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera12:
+    build: .
+    container_name: onvif-camera12
+    mac_address: a2:a2:a2:a2:00:0c
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera12.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera13:
+    build: .
+    container_name: onvif-camera13
+    mac_address: a2:a2:a2:a2:00:0d
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera13.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera14:
+    build: .
+    container_name: onvif-camera14
+    mac_address: a2:a2:a2:a2:00:0e
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera14.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera15:
+    build: .
+    container_name: onvif-camera15
+    mac_address: a2:a2:a2:a2:00:0f
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera15.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera16:
+    build: .
+    container_name: onvif-camera16
+    mac_address: a2:a2:a2:a2:00:10
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera16.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera17:
+    build: .
+    container_name: onvif-camera17
+    mac_address: a2:a2:a2:a2:00:11
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera17.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera18:
+    build: .
+    container_name: onvif-camera18
+    mac_address: a2:a2:a2:a2:00:12
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera18.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera19:
+    build: .
+    container_name: onvif-camera19
+    mac_address: a2:a2:a2:a2:00:13
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera19.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera20:
+    build: .
+    container_name: onvif-camera20
+    mac_address: a2:a2:a2:a2:00:14
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera20.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera21:
+    build: .
+    container_name: onvif-camera21
+    mac_address: a2:a2:a2:a2:00:15
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera21.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera22:
+    build: .
+    container_name: onvif-camera22
+    mac_address: a2:a2:a2:a2:00:16
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera22.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera23:
+    build: .
+    container_name: onvif-camera23
+    mac_address: a2:a2:a2:a2:00:17
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera23.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera24:
+    build: .
+    container_name: onvif-camera24
+    mac_address: a2:a2:a2:a2:00:18
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera24.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera25:
+    build: .
+    container_name: onvif-camera25
+    mac_address: a2:a2:a2:a2:00:19
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera25.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera26:
+    build: .
+    container_name: onvif-camera26
+    mac_address: a2:a2:a2:a2:00:1a
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera26.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera27:
+    build: .
+    container_name: onvif-camera27
+    mac_address: a2:a2:a2:a2:00:1b
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera27.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera28:
+    build: .
+    container_name: onvif-camera28
+    mac_address: a2:a2:a2:a2:00:1c
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera28.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera29:
+    build: .
+    container_name: onvif-camera29
+    mac_address: a2:a2:a2:a2:00:1d
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera29.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera30:
+    build: .
+    container_name: onvif-camera30
+    mac_address: a2:a2:a2:a2:00:1e
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera30.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera31:
+    build: .
+    container_name: onvif-camera31
+    mac_address: a2:a2:a2:a2:00:1f
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera31.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  camera32:
+    build: .
+    container_name: onvif-camera32
+    mac_address: a2:a2:a2:a2:00:20
+    networks:
+      - onvif_net
+    volumes:
+      - ./configs/camera32.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+networks:
+  onvif_net:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.6.0/24
+          gateway: 192.168.6.1
+          ip_range: 192.168.6.128/25  # Use upper half of subnet for containers
