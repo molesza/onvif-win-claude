@@ -1,0 +1,165 @@
+version: "3.8"
+services:
+  nvr2-camera1:
+    build: .
+    container_name: onvif-nvr2-camera1
+    mac_address: a2:a2:a2:a2:02:01
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.44
+    volumes:
+      - ./configs-nvr2/camera1.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera2:
+    build: .
+    container_name: onvif-nvr2-camera2
+    mac_address: a2:a2:a2:a2:02:02
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.45
+    volumes:
+      - ./configs-nvr2/camera2.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera3:
+    build: .
+    container_name: onvif-nvr2-camera3
+    mac_address: a2:a2:a2:a2:02:03
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.46
+    volumes:
+      - ./configs-nvr2/camera3.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera4:
+    build: .
+    container_name: onvif-nvr2-camera4
+    mac_address: a2:a2:a2:a2:02:04
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.47
+    volumes:
+      - ./configs-nvr2/camera4.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera5:
+    build: .
+    container_name: onvif-nvr2-camera5
+    mac_address: a2:a2:a2:a2:02:05
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.48
+    volumes:
+      - ./configs-nvr2/camera5.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera6:
+    build: .
+    container_name: onvif-nvr2-camera6
+    mac_address: a2:a2:a2:a2:02:06
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.49
+    volumes:
+      - ./configs-nvr2/camera6.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera7:
+    build: .
+    container_name: onvif-nvr2-camera7
+    mac_address: a2:a2:a2:a2:02:07
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.50
+    volumes:
+      - ./configs-nvr2/camera7.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera8:
+    build: .
+    container_name: onvif-nvr2-camera8
+    mac_address: a2:a2:a2:a2:02:08
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.51
+    volumes:
+      - ./configs-nvr2/camera8.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera9:
+    build: .
+    container_name: onvif-nvr2-camera9
+    mac_address: a2:a2:a2:a2:02:09
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.52
+    volumes:
+      - ./configs-nvr2/camera9.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera10:
+    build: .
+    container_name: onvif-nvr2-camera10
+    mac_address: a2:a2:a2:a2:02:0a
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.53
+    volumes:
+      - ./configs-nvr2/camera10.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera11:
+    build: .
+    container_name: onvif-nvr2-camera11
+    mac_address: a2:a2:a2:a2:02:0b
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.54
+    volumes:
+      - ./configs-nvr2/camera11.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera12:
+    build: .
+    container_name: onvif-nvr2-camera12
+    mac_address: a2:a2:a2:a2:02:0c
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.55
+    volumes:
+      - ./configs-nvr2/camera12.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera13:
+    build: .
+    container_name: onvif-nvr2-camera13
+    mac_address: a2:a2:a2:a2:02:0d
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.56
+    volumes:
+      - ./configs-nvr2/camera13.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera14:
+    build: .
+    container_name: onvif-nvr2-camera14
+    mac_address: a2:a2:a2:a2:02:0e
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.57
+    volumes:
+      - ./configs-nvr2/camera14.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera15:
+    build: .
+    container_name: onvif-nvr2-camera15
+    mac_address: a2:a2:a2:a2:02:0f
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.58
+    volumes:
+      - ./configs-nvr2/camera15.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+  nvr2-camera16:
+    build: .
+    container_name: onvif-nvr2-camera16
+    mac_address: a2:a2:a2:a2:02:10
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.59
+    volumes:
+      - ./configs-nvr2/camera16.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+networks:
+  onvif-test_onvif_net:
+    external: true

@@ -25,8 +25,11 @@ fi
 echo "Creating virtual network interfaces on $INTERFACE..."
 echo ""
 
-# Create 32 virtual network interfaces
-for i in {1..32}; do
+# Determine number of interfaces to create (default 32, or passed as argument)
+NUM_INTERFACES=${1:-32}
+
+# Create virtual network interfaces
+for i in $(seq 1 $NUM_INTERFACES); do
     MAC_HEX=$(printf "%02x" $i)
     MAC_ADDRESS="a2:a2:a2:a2:00:$MAC_HEX"
     VLAN_NAME="onvif-proxy-$i"

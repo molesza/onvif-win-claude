@@ -4,7 +4,10 @@ It takes an existing RTSP Stream and builds a virtual Onvif device for it, so th
 
 Currently only Onvif Profile S (Live Streaming) is implemented with limited functionality.
 
-**✅ Tested and Working**: Successfully deployed with 32 virtual cameras on a Raspberry Pi, all adopted and running in UniFi Protect.
+**✅ Tested and Working**: Successfully deployed with multiple NVRs on a Raspberry Pi:
+- NVR1: 32 cameras at 192.168.6.201 (IPs: 192.168.6.11-42)
+- NVR2: 16 cameras at 192.168.6.202 (IPs: 192.168.6.44-59)
+- Scalable to support up to 6 NVRs with automatic IP allocation
 
 # Unifi Protect
 Unifi Protect 5.0 introduced support for third party cameras that allow the user to add Onvif compatible cameras to their Unifi Protect system.
@@ -50,9 +53,64 @@ Key components:
 
 This architecture allows the system to scale to any number of virtual cameras without port conflicts, similar to how real multi-channel NVRs operate.
 
-## Virtual Networks
-To properly work with Unifi Protect each virtual Onvif device needs to have its own unique MAC address.
-The easiest way to achieve this is by creating virtual network interfaces with the MacVLAN[^1] network driver:
+## Deployment Options
+
+### Docker (Recommended)
+
+The recommended way to run multiple virtual ONVIF cameras is using Docker containers with macvlan networking. This approach provides better isolation and easier management.
+
+#### Quick Start with Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t onvif-server .
+   ```
+
+2. **Generate configurations for your NVR:**
+   ```bash
+   # For NVR1 (32 cameras at 192.168.6.201)
+   node generate-nvr-configs.js 1 192.168.6.201 32
+   
+   # For NVR2 (16 cameras at 192.168.6.202)
+   node generate-nvr-configs.js 2 192.168.6.202 16
+   ```
+
+3. **Adopt cameras using the generated script:**
+   ```bash
+   # For NVR1
+   sudo ./adopt-nvr1.sh
+   
+   # For NVR2
+   sudo ./adopt-nvr2.sh
+   ```
+
+The Docker setup automatically:
+- Creates a macvlan network for proper camera isolation
+- Assigns unique MAC addresses to each container
+- Manages cameras with automatic IP assignment via DHCP
+- Generates separate Docker Compose files for each NVR
+
+#### Example Docker Compose Configuration
+
+Each camera is defined as a service with its own MAC address:
+```yaml
+services:
+  camera1:
+    build: .
+    container_name: onvif-camera1
+    mac_address: a2:a2:a2:a2:00:01
+    networks:
+      onvif_net:
+        ipv4_address: 192.168.6.11  # Optional: fixed IP
+    volumes:
+      - ./configs/camera1.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+```
+
+### Virtual Network Interfaces (Alternative)
+
+For systems where Docker is not available, you can create virtual network interfaces manually:
+
 ```bash
 ip link add [NAME] link [INTERFACE] address [MAC_ADDRESS] type macvlan mode bridge
 ```
@@ -61,22 +119,6 @@ ip link add [NAME] link [INTERFACE] address [MAC_ADDRESS] type macvlan mode brid
 > It is recommended to reserve fixed IP addresses in your DHCP server for your virtual networks.
 
 Replace `[NAME]` with a name of your choosing (e.g. `onvif-proxy-1`) and `[MAC_ADDRESS]` with a locally administered MAC address[^2] (e.g. `a2:a2:a2:a2:a2:a1`) and `[INTERFACE]` with the name of the parent network interface (e.g. `eth0`).
-
-
-#### Example to create four virtual networks:
-```bash
-# Setup the first virtual network with name "onvif-proxy-1" and MAC address "a2:a2:a2:a2:a2:a1":
-sudo ip link add onvif-proxy-1 link eth0 address a2:a2:a2:a2:a2:a1 type macvlan mode bridge
-
-# Setup the first virtual network with name "onvif-proxy-2" and MAC address "a2:a2:a2:a2:a2:a2":
-sudo ip link add onvif-proxy-2 link eth0 address a2:a2:a2:a2:a2:a2 type macvlan mode bridge
-
-# Setup the first virtual network with name "onvif-proxy-3" and MAC address "a2:a2:a2:a2:a2:a3":
-sudo ip link add onvif-proxy-3 link eth0 address a2:a2:a2:a2:a2:a3 type macvlan mode bridge
-
-# Setup the first virtual network with name "onvif-proxy-4" and MAC address "a2:a2:a2:a2:a2:a4":
-sudo ip link add onvif-proxy-4 link eth0 address a2:a2:a2:a2:a2:a4 type macvlan mode bridge
-```
 
 > [!IMPORTANT]
 > All virtual network settings will be lost when you reboot the server and will need to be redone!
@@ -138,36 +180,90 @@ When starting, the application will:
 Your Virtual Onvif Devices should now automatically show up for adoption in Unifi Protect as "Onvif Cardinal" device. The username and password are the same as on the real Onvif device.
 
 ### Important Note for UniFi Protect Users
-UniFi Protect can only adopt one virtual camera at a time when multiple cameras are running on the same host. This is a limitation of UniFi's discovery and adoption process. To work around this:
+UniFi Protect can only adopt one virtual camera at a time when multiple cameras are running on the same host. This is a limitation of UniFi's discovery and adoption process. 
 
+#### Docker Workflow:
+1. Start cameras one at a time for adoption:
+   ```bash
+   docker compose up -d camera1
+   # Adopt in UniFi Protect
+   docker compose up -d camera2
+   # Continue for each camera...
+   ```
+
+2. After all cameras are adopted, they will all run together automatically
+
+#### Non-Docker Workflow:
 1. Use the interactive adoption script:
    ```bash
    node interactive-adoption.js config.yaml
    ```
-   This script will guide you through adopting cameras one by one.
 
-2. The script will:
-   - Start one camera at a time
-   - Wait for you to adopt it in UniFi Protect
-   - Stop the camera and start the next one
-   - Continue until all cameras are adopted
-
-3. After all cameras are adopted, you can run all cameras together:
+2. After adoption, run all cameras:
    ```bash
    node main.js config.yaml
    ```
 
 
-# Docker
-A prebuilt docker image can be found in the packages section of this repository.
-All you need to do is to mount your `config.yaml` to `/onvif.yaml` inside the container.
+## Resource Monitoring
 
-Example of running the image in a temporary container:
+Monitor your ONVIF camera deployment with built-in tools:
+
+```bash
+# Comprehensive resource report
+./monitor-resources.sh
+
+# Real-time monitoring dashboard
+./monitor-realtime.sh
+
+# Export statistics to CSV
+./export-stats.sh
+```
+
+See [MONITORING-TOOLS.md](MONITORING-TOOLS.md) for detailed usage.
+
+## Multi-NVR Support
+
+This system supports multiple NVRs with automatic configuration generation:
+
+### Generate NVR Configuration
+```bash
+# Usage: node generate-nvr-configs.js <nvr-number> <nvr-ip> [camera-count]
+# NVR numbers 1-6 are supported
+
+# Example for NVR3 with 24 cameras at 192.168.6.203
+node generate-nvr-configs.js 3 192.168.6.203 24
+```
+
+This generates:
+- `configs-nvr3/` directory with camera configurations
+- `docker-compose-nvr3-192.168.6.203.yml` Docker Compose file
+- `adopt-nvr3.sh` adoption script
+
+### IP Address Allocation
+The system automatically allocates IP addresses to avoid conflicts:
+- NVR1: 192.168.6.11-42 (32 addresses starting at .11)
+- NVR2: 192.168.6.44-75 (32 addresses starting at .44)
+- NVR3: 192.168.6.77-108 (32 addresses starting at .77)
+- And so on...
+
+### MAC Address Scheme
+Each NVR uses a unique MAC address prefix:
+- NVR1: `a2:a2:a2:a2:01:XX`
+- NVR2: `a2:a2:a2:a2:02:XX`
+- NVR3: `a2:a2:a2:a2:03:XX`
+- And so on...
+
+## Single Camera with Docker
+
+For testing or single camera setups:
 ```bash
 docker run --rm -it -v /path/to/my/config.yaml:/onvif.yaml ghcr.io/daniela-hase/onvif-server:latest
 ```
 
-To create the configuration from inside the docker container you can change the entrypoint of the container to `/bin/sh`:
+## Creating Configuration Inside Docker
+
+To create the configuration from inside the docker container:
 ```bash
 docker run --rm -it --entrypoint /bin/sh ghcr.io/daniela-hase/onvif-server:latest
 

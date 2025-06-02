@@ -11,38 +11,56 @@ UniFi Protect has a limitation where it can only adopt one virtual camera at a t
 ## Prerequisites
 
 1. Raspberry Pi or Linux system with the virtual ONVIF server installed
-2. Network interfaces created and DHCP addresses assigned
-3. Configuration file (`config.yaml`) with all your cameras defined
+2. Docker and Docker Compose installed (for Docker deployment)
+3. Configuration file (`config.yaml`) or individual camera configs in `configs/` directory
 4. UniFi Protect system on the same network
 
 ## Step-by-Step Adoption Process
 
-### 1. Create Virtual Network Interfaces
+### Option A: Docker Deployment (Recommended)
 
-First, create the virtual network interfaces for all cameras:
+#### 1. Build the Docker Image
+
+```bash
+docker build -t onvif-server .
+```
+
+#### 2. Start Cameras One by One
+
+For UniFi Protect adoption, start each camera individually:
+
+```bash
+# Start camera 1
+docker compose up -d camera1
+
+# Adopt in UniFi Protect, then start camera 2
+docker compose up -d camera2
+
+# Continue for each camera...
+```
+
+The Docker macvlan network automatically handles:
+- Unique MAC addresses for each container
+- DHCP IP assignment
+- Network isolation
+
+### Option B: Manual Virtual Interfaces
+
+#### 1. Create Virtual Network Interfaces
 
 ```bash
 sudo ./setup-virtual-networks.sh
 ```
 
-This creates 32 virtual interfaces (onvif-proxy-1 through onvif-proxy-32) with unique MAC addresses.
+This creates 32 virtual interfaces with unique MAC addresses.
 
-### 2. Request DHCP Addresses
-
-Get IP addresses from your router's DHCP server:
+#### 2. Request DHCP Addresses
 
 ```bash
 sudo ./request-dhcp.sh
 ```
 
-Verify all interfaces have IP addresses. You should see output like:
-```
-onvif-proxy-1: 192.168.6.233
-onvif-proxy-2: 192.168.6.234
-...
-```
-
-### 3. Run the Interactive Adoption Script
+#### 3. Run the Interactive Adoption Script
 
 This is the key to successful adoption:
 
@@ -71,7 +89,27 @@ For each camera:
 
 ### 5. Running All Cameras
 
-After all cameras are adopted, you can run them all together:
+#### Docker (Recommended)
+
+After all cameras are adopted, they're already running if you used `docker compose up -d`. To manage them:
+
+```bash
+# View status
+docker compose ps
+
+# Stop all cameras
+docker compose down
+
+# Start all cameras
+docker compose up -d
+
+# View logs
+docker compose logs -f camera1
+```
+
+#### Manual Setup
+
+Run all cameras together:
 
 ```bash
 node main.js config.yaml
@@ -103,7 +141,14 @@ sudo systemctl start onvif-proxy
 - Adopt one at a time
 
 ### Cameras work initially but fail after reboot
-- Make sure virtual interfaces are persistent
+
+#### Docker
+- Containers should auto-restart if you used `restart: unless-stopped`
+- Check Docker service is enabled: `sudo systemctl enable docker`
+- Verify with: `docker compose ps`
+
+#### Manual Setup
+- Make sure virtual interfaces are recreated on boot
 - Use the systemd service for automatic startup
 - Check DHCP leases haven't expired
 
@@ -127,6 +172,25 @@ The master discovery service coordinates all cameras but each operates independe
 
 ## Quick Reference
 
+### Docker Commands
+```bash
+# Build image
+docker build -t onvif-server .
+
+# Start one camera for adoption
+docker compose up -d camera1
+
+# Start all cameras (after adoption)
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# Stop all
+docker compose down
+```
+
+### Manual Setup Commands
 ```bash
 # Setup (run once)
 sudo ./setup-virtual-networks.sh

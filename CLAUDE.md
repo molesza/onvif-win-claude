@@ -40,6 +40,33 @@ This is a Virtual ONVIF Server that creates virtual ONVIF-compatible devices fro
    - Extracts stream profiles and settings
    - Creates YAML configuration templates
 
+6. **generate-nvr-configs.js** - Multi-NVR configuration generator:
+   - Creates configurations for multiple NVRs (1-6)
+   - Automatically allocates non-overlapping IP ranges
+   - Generates Docker Compose files with unique MAC addresses
+   - Creates adoption scripts for each NVR
+   - Supports variable camera counts per NVR
+
+### Monitoring Tools
+
+1. **monitor-resources.sh** - Comprehensive resource analysis:
+   - System specifications and current load
+   - Per-camera CPU and memory usage
+   - Network I/O statistics
+   - Capacity analysis and recommendations
+   - Health status checks
+
+2. **monitor-realtime.sh** - Live monitoring dashboard:
+   - Updates every 5 seconds
+   - Color-coded health indicators
+   - Top resource consumers
+   - System resource overview
+
+3. **export-stats.sh** - Statistics export:
+   - Exports to CSV for trend analysis
+   - Summary and detailed metrics
+   - Designed for cron automation
+
 ### Dependencies
 - **soap**: SOAP server/client implementation
 - **node-tcp-proxy**: Proxies RTSP and snapshot streams
@@ -64,13 +91,22 @@ node main.js ./config.yaml
 node main.js --debug ./config.yaml
 ```
 
-### Docker Usage
+### Docker Usage (Recommended)
 ```bash
-# Run with mounted config
-docker run --rm -it -v /path/to/config.yaml:/onvif.yaml ghcr.io/daniela-hase/onvif-server:latest
+# Build the Docker image
+docker build -t onvif-server .
 
-# Create config inside container
-docker run --rm -it --entrypoint /bin/sh ghcr.io/daniela-hase/onvif-server:latest
+# Generate configuration for an NVR
+node generate-nvr-configs.js <nvr-number> <nvr-ip> [camera-count]
+
+# Example: NVR1 with 32 cameras
+node generate-nvr-configs.js 1 192.168.6.201 32
+
+# Adopt cameras using the generated script
+sudo ./adopt-nvr1.sh
+
+# Run all cameras after adoption
+docker compose -f docker-compose-nvr1-192.168.6.201.yml up -d
 ```
 
 ## Configuration Structure
@@ -91,7 +127,14 @@ The server uses YAML configuration with this structure:
 
 ## Network Requirements
 
-Each virtual device requires a unique MAC address, typically created using MacVLAN:
+### Docker (Recommended)
+Docker Compose automatically handles network isolation using macvlan networking. Each container gets:
+- A unique MAC address (defined in docker-compose.yml)
+- Automatic DHCP IP assignment
+- Proper network isolation
+
+### Manual Setup (Alternative)
+For non-Docker deployments, create virtual interfaces manually:
 ```bash
 sudo ip link add [NAME] link [INTERFACE] address [MAC] type macvlan mode bridge
 ```
@@ -117,10 +160,16 @@ UniFi Protect can only adopt one virtual camera at a time when multiple cameras 
 
 ### What Doesn't Work
 - Running all cameras simultaneously during initial adoption in UniFi Protect
-- Docker containers with macvlan networking (UniFi still sees them as duplicates)
-- Trying to make cameras appear completely unique (even with different manufacturers/models)
+- Trying to make cameras appear completely unique during adoption (even with different manufacturers/models)
 
 ### What Works
+
+#### Docker Workflow (Recommended)
+1. Build and start containers: `docker compose up -d`
+2. Adopt cameras one by one in UniFi Protect
+3. All cameras run together after adoption
+
+#### Manual Workflow
 1. Create virtual network interfaces: `sudo ./setup-virtual-networks.sh`
 2. Request DHCP addresses: `sudo ./request-dhcp.sh`  
 3. Adopt cameras one by one: `node interactive-adoption.js config.yaml`
@@ -128,10 +177,25 @@ UniFi Protect can only adopt one virtual camera at a time when multiple cameras 
 
 ## Success Story
 
-Successfully deployed and tested with 32 virtual ONVIF cameras on a Raspberry Pi:
-- All 32 cameras adopted into UniFi Protect using the interactive adoption script
-- Each camera maintains its own unique identity and streams independently
-- System runs stably with all cameras active simultaneously (after initial adoption)
-- Virtual network interfaces with DHCP work perfectly for camera isolation
+Successfully deployed multiple NVRs on a Raspberry Pi:
+- **NVR1**: 32 cameras at 192.168.6.201 (IPs: 192.168.6.11-42)
+- **NVR2**: 16 cameras at 192.168.6.202 (IPs: 192.168.6.44-59)
+- All cameras adopted into UniFi Protect (one by one during adoption)
+- System runs stably with all 48 cameras active simultaneously
+- **Docker with macvlan networking and automated configuration generation proved to be the most reliable solution**
 
-This confirms the architecture is sound - the only limitation is UniFi's adoption process, which is easily handled by the interactive script.
+### Multi-NVR Architecture
+- Automatic IP allocation prevents conflicts between NVRs
+- Each NVR gets unique MAC address prefix (a2:a2:a2:a2:XX:YY)
+- Port ranges allocated per NVR (8001-8032, 8101-8132, etc.)
+- Single Docker network shared by all NVRs
+- Scalable to 6 NVRs (192 total cameras)
+
+### Docker Advantages
+- Automatic network isolation with macvlan
+- Easy management with separate docker-compose files per NVR
+- No manual virtual interface management
+- Containers restart automatically on system reboot
+- Clean separation between NVRs and cameras
+
+This confirms the architecture is sound and scalable - the only limitation is UniFi's adoption process, which requires adopting cameras one at a time.
