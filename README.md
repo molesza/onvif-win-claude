@@ -7,6 +7,8 @@ Currently only Onvif Profile S (Live Streaming) is implemented with limited func
 **✅ Tested and Working**: Successfully deployed with multiple NVRs on a Raspberry Pi:
 - NVR1: 32 cameras at 192.168.6.201 (IPs: 192.168.6.11-42)
 - NVR2: 16 cameras at 192.168.6.202 (IPs: 192.168.6.44-59)
+- NVR3: 32 cameras at 192.168.6.204 (IPs: 192.168.6.60-91)
+- Total: 80 cameras running simultaneously
 - Scalable to support up to 6 NVRs with automatic IP allocation
 
 # Unifi Protect
@@ -183,13 +185,18 @@ Your Virtual Onvif Devices should now automatically show up for adoption in Unif
 UniFi Protect can only adopt one virtual camera at a time when multiple cameras are running on the same host. This is a limitation of UniFi's discovery and adoption process. 
 
 #### Docker Workflow:
-1. Start cameras one at a time for adoption:
+1. Use the universal adoption script:
    ```bash
-   docker compose up -d camera1
-   # Adopt in UniFi Protect
-   docker compose up -d camera2
-   # Continue for each camera...
+   # For any NVR configuration
+   ./adopt-nvr.sh docker-compose-nvr3-192.168.6.204.yml nvr3
    ```
+   
+   The script will:
+   - Start cameras one at a time
+   - Guide you through adoption for each camera
+   - Auto-detect total camera count
+   - Allow skipping failed cameras
+   - Start all cameras after adoption
 
 2. After all cameras are adopted, they will all run together automatically
 
@@ -226,7 +233,7 @@ See [MONITORING-TOOLS.md](MONITORING-TOOLS.md) for detailed usage.
 
 This system supports multiple NVRs with automatic configuration generation:
 
-### Generate NVR Configuration
+### Method 1: Generate NVR Configuration (Legacy)
 ```bash
 # Usage: node generate-nvr-configs.js <nvr-number> <nvr-ip> [camera-count]
 # NVR numbers 1-6 are supported
@@ -235,10 +242,25 @@ This system supports multiple NVRs with automatic configuration generation:
 node generate-nvr-configs.js 3 192.168.6.203 24
 ```
 
-This generates:
-- `configs-nvr3/` directory with camera configurations
-- `docker-compose-nvr3-192.168.6.203.yml` Docker Compose file
-- `adopt-nvr3.sh` adoption script
+### Method 2: Smart NVR Configuration (Recommended)
+```bash
+# Usage: node generate-nvr-smart.js <nvr-ip> <username> <password> <nvr-name>
+
+# Example for NVR3 with automatic detection
+node generate-nvr-smart.js 192.168.6.204 admin password123 nvr3
+```
+
+Smart generation features:
+- Automatically detects next available IP address
+- Probes NVR streams to detect actual resolutions
+- Auto-detects number of active cameras
+- Corrects framerate reporting issues
+- Creates proper sequential IP addressing
+
+Both methods generate:
+- `configs-nvrX/` directory with camera configurations
+- `docker-compose-nvrX-<ip>.yml` Docker Compose file
+- Compatible with universal adoption script
 
 ### IP Address Allocation
 The system automatically allocates IP addresses to avoid conflicts:

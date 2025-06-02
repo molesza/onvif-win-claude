@@ -1,17 +1,17 @@
 onvif:
-  - mac: a2:a2:a2:a2:02:0c
+  - mac: a3:a3:a3:a3:03:0c
     ports:
-      server: 8212
+      server: 8312
       rtsp: 8554
       snapshot: 8580
-    name: NVR2-Camera-12
-    uuid: 00b04319-006a-4a9d-bf5e-a4146f64bc1c
+    name: NVR3-Camera-12
+    uuid: 3efd0467-5b7a-48e7-b1a7-8189d12a05c9
     highQuality:
       rtsp: /cam/realmonitor?channel=12&subtype=0&unicast=true&proto=Onvif
       snapshot: /onvif/snapshot?channel=12&subtype=0
-      width: 960
-      height: 576
-      framerate: 100
+      width: 1920
+      height: 1080
+      framerate: 15
       bitrate: 2048
       quality: 4
     lowQuality:
@@ -19,11 +19,11 @@ onvif:
       snapshot: /onvif/snapshot?channel=12&subtype=1
       width: 352
       height: 288
-      framerate: 100
+      framerate: 15
       bitrate: 160
       quality: 1
     target:
-      hostname: 192.168.6.202
+      hostname: 192.168.6.204
       ports:
         rtsp: 554
         snapshot: 80

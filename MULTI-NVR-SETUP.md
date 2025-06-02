@@ -14,7 +14,25 @@ The system supports up to 6 NVRs, each with:
 
 ### 1. Generate NVR Configuration
 
-Use the `generate-nvr-configs.js` script to create all necessary files:
+Two options are available for generating configurations:
+
+#### Option A: With ONVIF Probing (Recommended)
+Attempts to connect to the NVR and retrieve actual camera settings:
+
+```bash
+# Usage: node generate-nvr-configs-auto.js <nvr-number> <nvr-ip> <username> <password> [camera-count]
+
+# Example:
+node generate-nvr-configs-auto.js 2 192.168.6.202 admin password 16
+```
+
+This will:
+- Try to probe the NVR via ONVIF to get actual resolution, framerate, and bitrate
+- Fall back to manual defaults if ONVIF probe fails
+- Generate accurate configurations based on your cameras
+
+#### Option B: Manual Configuration
+Uses default settings without probing:
 
 ```bash
 # Usage: node generate-nvr-configs.js <nvr-number> <nvr-ip> [camera-count]
@@ -24,6 +42,8 @@ node generate-nvr-configs.js 1 192.168.6.201 32  # NVR1 with 32 cameras
 node generate-nvr-configs.js 2 192.168.6.202 16  # NVR2 with 16 cameras
 node generate-nvr-configs.js 3 192.168.6.203 24  # NVR3 with 24 cameras
 ```
+
+Default settings: 2592x1944 @ 12fps, 2048kb/s (high), 352x288 @ 12fps, 160kb/s (low)
 
 This generates:
 - `configs-nvrX/` - Directory with individual camera YAML configurations

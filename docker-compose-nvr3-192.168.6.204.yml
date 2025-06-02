@@ -1,0 +1,358 @@
+version: '3.8'
+
+services:
+  nvr3-camera1:
+    image: onvif-server
+    container_name: onvif-nvr3-camera1
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.60
+    volumes:
+      - ./configs-nvr3/camera1.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera2:
+    image: onvif-server
+    container_name: onvif-nvr3-camera2
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.61
+    volumes:
+      - ./configs-nvr3/camera2.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera3:
+    image: onvif-server
+    container_name: onvif-nvr3-camera3
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.62
+    volumes:
+      - ./configs-nvr3/camera3.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera4:
+    image: onvif-server
+    container_name: onvif-nvr3-camera4
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.63
+    volumes:
+      - ./configs-nvr3/camera4.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera5:
+    image: onvif-server
+    container_name: onvif-nvr3-camera5
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.64
+    volumes:
+      - ./configs-nvr3/camera5.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera6:
+    image: onvif-server
+    container_name: onvif-nvr3-camera6
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.65
+    volumes:
+      - ./configs-nvr3/camera6.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera7:
+    image: onvif-server
+    container_name: onvif-nvr3-camera7
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.66
+    volumes:
+      - ./configs-nvr3/camera7.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera8:
+    image: onvif-server
+    container_name: onvif-nvr3-camera8
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.67
+    volumes:
+      - ./configs-nvr3/camera8.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera9:
+    image: onvif-server
+    container_name: onvif-nvr3-camera9
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.68
+    volumes:
+      - ./configs-nvr3/camera9.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera10:
+    image: onvif-server
+    container_name: onvif-nvr3-camera10
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.69
+    volumes:
+      - ./configs-nvr3/camera10.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera11:
+    image: onvif-server
+    container_name: onvif-nvr3-camera11
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.70
+    volumes:
+      - ./configs-nvr3/camera11.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera12:
+    image: onvif-server
+    container_name: onvif-nvr3-camera12
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.71
+    volumes:
+      - ./configs-nvr3/camera12.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera13:
+    image: onvif-server
+    container_name: onvif-nvr3-camera13
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.72
+    volumes:
+      - ./configs-nvr3/camera13.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera14:
+    image: onvif-server
+    container_name: onvif-nvr3-camera14
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.73
+    volumes:
+      - ./configs-nvr3/camera14.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera15:
+    image: onvif-server
+    container_name: onvif-nvr3-camera15
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.74
+    volumes:
+      - ./configs-nvr3/camera15.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera16:
+    image: onvif-server
+    container_name: onvif-nvr3-camera16
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.75
+    volumes:
+      - ./configs-nvr3/camera16.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera17:
+    image: onvif-server
+    container_name: onvif-nvr3-camera17
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.76
+    volumes:
+      - ./configs-nvr3/camera17.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera18:
+    image: onvif-server
+    container_name: onvif-nvr3-camera18
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.77
+    volumes:
+      - ./configs-nvr3/camera18.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera19:
+    image: onvif-server
+    container_name: onvif-nvr3-camera19
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.78
+    volumes:
+      - ./configs-nvr3/camera19.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera20:
+    image: onvif-server
+    container_name: onvif-nvr3-camera20
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.79
+    volumes:
+      - ./configs-nvr3/camera20.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera21:
+    image: onvif-server
+    container_name: onvif-nvr3-camera21
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.80
+    volumes:
+      - ./configs-nvr3/camera21.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera22:
+    image: onvif-server
+    container_name: onvif-nvr3-camera22
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.81
+    volumes:
+      - ./configs-nvr3/camera22.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera23:
+    image: onvif-server
+    container_name: onvif-nvr3-camera23
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.82
+    volumes:
+      - ./configs-nvr3/camera23.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera24:
+    image: onvif-server
+    container_name: onvif-nvr3-camera24
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.83
+    volumes:
+      - ./configs-nvr3/camera24.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera25:
+    image: onvif-server
+    container_name: onvif-nvr3-camera25
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.84
+    volumes:
+      - ./configs-nvr3/camera25.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera26:
+    image: onvif-server
+    container_name: onvif-nvr3-camera26
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.85
+    volumes:
+      - ./configs-nvr3/camera26.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera27:
+    image: onvif-server
+    container_name: onvif-nvr3-camera27
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.86
+    volumes:
+      - ./configs-nvr3/camera27.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera28:
+    image: onvif-server
+    container_name: onvif-nvr3-camera28
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.87
+    volumes:
+      - ./configs-nvr3/camera28.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera29:
+    image: onvif-server
+    container_name: onvif-nvr3-camera29
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.88
+    volumes:
+      - ./configs-nvr3/camera29.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera30:
+    image: onvif-server
+    container_name: onvif-nvr3-camera30
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.89
+    volumes:
+      - ./configs-nvr3/camera30.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera31:
+    image: onvif-server
+    container_name: onvif-nvr3-camera31
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.90
+    volumes:
+      - ./configs-nvr3/camera31.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+  nvr3-camera32:
+    image: onvif-server
+    container_name: onvif-nvr3-camera32
+    build: .
+    networks:
+      onvif-test_onvif_net:
+        ipv4_address: 192.168.6.91
+    volumes:
+      - ./configs-nvr3/camera32.yaml:/onvif.yaml:ro
+    restart: unless-stopped
+
+networks:
+  onvif-test_onvif_net:
+    external: true

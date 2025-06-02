@@ -1,5 +1,6 @@
 #!/bin/bash
 # Adoption script for NVR 2 (192.168.6.202)
+# Generated with RTSP stream probing
 
 echo "Starting adoption process for NVR 2"
 echo "This will start cameras one by one for UniFi Protect adoption"

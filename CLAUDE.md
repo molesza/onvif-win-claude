@@ -47,6 +47,21 @@ This is a Virtual ONVIF Server that creates virtual ONVIF-compatible devices fro
    - Creates adoption scripts for each NVR
    - Supports variable camera counts per NVR
 
+7. **generate-nvr-smart.js** - Intelligent NVR configuration generator:
+   - Automatically detects highest IP in use across all NVRs
+   - Probes NVR streams with ffprobe to detect actual resolutions
+   - Corrects framerate reporting (100fps → 15fps)
+   - Creates configurations with proper IP sequencing
+   - Generates docker-compose with shared network
+   - Auto-detects active camera channels
+
+8. **adopt-nvr.sh** - Universal adoption script:
+   - Works with any NVR configuration
+   - Auto-detects camera count from docker-compose
+   - Provides skip option for failed cameras
+   - Shows clear progress and camera names
+   - Ensures clean adoption process
+
 ### Monitoring Tools
 
 1. **monitor-resources.sh** - Comprehensive resource analysis:
@@ -96,17 +111,20 @@ node main.js --debug ./config.yaml
 # Build the Docker image
 docker build -t onvif-server .
 
-# Generate configuration for an NVR
+# Method 1: Generate configuration for an NVR (legacy)
 node generate-nvr-configs.js <nvr-number> <nvr-ip> [camera-count]
 
-# Example: NVR1 with 32 cameras
-node generate-nvr-configs.js 1 192.168.6.201 32
+# Method 2: Smart generation with auto-detection (recommended)
+node generate-nvr-smart.js <nvr-ip> <username> <password> <nvr-name>
 
-# Adopt cameras using the generated script
-sudo ./adopt-nvr1.sh
+# Example: NVR3 with automatic detection
+node generate-nvr-smart.js 192.168.6.204 admin password123 nvr3
+
+# Adopt cameras using the universal script
+./adopt-nvr.sh docker-compose-nvr3-192.168.6.204.yml nvr3
 
 # Run all cameras after adoption
-docker compose -f docker-compose-nvr1-192.168.6.201.yml up -d
+docker compose -f docker-compose-nvr3-192.168.6.204.yml up -d
 ```
 
 ## Configuration Structure
@@ -180,8 +198,9 @@ UniFi Protect can only adopt one virtual camera at a time when multiple cameras 
 Successfully deployed multiple NVRs on a Raspberry Pi:
 - **NVR1**: 32 cameras at 192.168.6.201 (IPs: 192.168.6.11-42)
 - **NVR2**: 16 cameras at 192.168.6.202 (IPs: 192.168.6.44-59)
+- **NVR3**: 32 cameras at 192.168.6.204 (IPs: 192.168.6.60-91)
 - All cameras adopted into UniFi Protect (one by one during adoption)
-- System runs stably with all 48 cameras active simultaneously
+- System runs stably with all 80 cameras active simultaneously
 - **Docker with macvlan networking and automated configuration generation proved to be the most reliable solution**
 
 ### Multi-NVR Architecture
@@ -199,3 +218,19 @@ Successfully deployed multiple NVRs on a Raspberry Pi:
 - Clean separation between NVRs and cameras
 
 This confirms the architecture is sound and scalable - the only limitation is UniFi's adoption process, which requires adopting cameras one at a time.
+
+## Future Improvements
+
+### Adoption Process Enhancement
+The current adoption process requires manual intervention for each camera. Potential improvements:
+- Investigate UniFi Protect API for automated adoption
+- Create a web interface for adoption management
+- Implement batch adoption with configurable delays
+- Add adoption status tracking and retry logic
+- Consider ONVIF device emulation improvements to speed up discovery
+
+### Stream Detection Improvements
+- Cache ffprobe results to speed up configuration generation
+- Add support for detecting codec information
+- Implement automatic bitrate optimization based on resolution
+- Add H.265/HEVC stream support detection
