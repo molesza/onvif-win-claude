@@ -20,10 +20,11 @@ async function startServer() {
     const io = initializeWebSocket(server);
     app.set('io', io);
 
-    // Start server
-    server.listen(PORT, () => {
-      logger.info(`Server running on port ${PORT}`);
+    // Start server on all interfaces
+    server.listen(PORT, '0.0.0.0', () => {
+      logger.info(`Server running on http://0.0.0.0:${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Accessible from network at http://<your-ip>:${PORT}`);
     });
 
     // Graceful shutdown
