@@ -4,6 +4,9 @@ It takes an existing RTSP Stream and builds a virtual Onvif device for it, so th
 
 Currently only Onvif Profile S (Live Streaming) is implemented with limited functionality.
 
+## 🆕 Web Interface Available!
+A modern web-based management interface is now available for easier camera management. See [WEB-INTERFACE-QUICKSTART.md](WEB-INTERFACE-QUICKSTART.md) for setup instructions.
+
 **✅ Tested and Working**: Successfully deployed with multiple NVRs on a Raspberry Pi:
 - NVR1: 32 cameras at 192.168.6.201 (IPs: 192.168.6.11-42)
 - NVR2: 16 cameras at 192.168.6.202 (IPs: 192.168.6.44-59)
