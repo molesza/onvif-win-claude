@@ -6,13 +6,11 @@ const containerHandler = require('./handlers/container.handler');
 const adoptionHandler = require('./handlers/adoption.handler');
 
 function initializeWebSocket(server) {
-  // Parse CORS origins from environment variable
-  const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000').split(',');
-  
   const io = new Server(server, {
     cors: {
-      origin: allowedOrigins,
-      credentials: true
+      origin: true, // Allow all origins for development
+      credentials: true,
+      methods: ['GET', 'POST']
     }
   });
 

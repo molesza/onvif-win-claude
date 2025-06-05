@@ -10,23 +10,19 @@ const { default: rateLimiter } = require('./middleware/rateLimiter');
 
 const app = express();
 
-// Security middleware
-app.use(helmet());
+// Security middleware with relaxed settings for development
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+  crossOriginOpenerPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
 
-// CORS configuration with multiple origins support
+// CORS configuration - Allow all origins for development
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000').split(',');
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+  origin: true, // Allow all origins
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
 

@@ -5,17 +5,11 @@ The web interface is now configured to be accessible from your local network, no
 
 ## Access URLs
 
-### From the Raspberry Pi itself:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:3001
+### From ANY device on your network:
+- Frontend: http://192.168.6.240:3000
+- Backend API: http://192.168.6.240:3001
 
-### From your development PC (192.168.104.182):
-- Frontend: http://192.168.6.204:3000
-- Backend API: http://192.168.6.204:3001
-
-### From any device on your network:
-- Frontend: http://<raspberry-pi-ip>:3000
-- Backend API: http://<raspberry-pi-ip>:3001
+The interface is now accessible from any device, regardless of VLAN or subnet!
 
 ## Configuration Changes Made
 
@@ -25,14 +19,15 @@ The web interface is now configured to be accessible from your local network, no
 
 ### 2. Backend (Express)
 - Server listens on all interfaces (`0.0.0.0`)
-- CORS configured to accept multiple origins
-- WebSocket server accepts connections from remote hosts
+- CORS configured to accept ALL origins (development mode)
+- WebSocket server accepts connections from any host
+- Helmet security middleware relaxed for cross-origin access
 
-### 3. Environment Variables
-The backend `.env` file includes allowed CORS origins:
-```
-CORS_ORIGIN=http://localhost:3000,http://192.168.104.182:3000,http://192.168.6.204:3000
-```
+### 3. CORS Configuration
+The backend now accepts requests from ANY origin:
+- `origin: true` allows all origins
+- Perfect for development across VLANs
+- ⚠️ **WARNING**: Restrict this in production!
 
 ## Security Notes
 
