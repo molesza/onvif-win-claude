@@ -126,13 +126,14 @@ function getBasePort(nvrName) {
 // Function to generate MAC prefix
 function getMACPrefix(nvrName) {
     const macMap = {
-        'nvr1': 'a1:a1:a1:a1:01:',
+        'nvr1': 'a2:a2:a2:a2:01:',
         'nvr2': 'a2:a2:a2:a2:02:',
-        'nvr3': 'a3:a3:a3:a3:03:',
-        'nvr4': 'a4:a4:a4:a4:04:',
-        'nvr5': 'a5:a5:a5:a5:05:'
+        'nvr3': 'a2:a2:a2:a2:03:',
+        'nvr4': 'a2:a2:a2:a2:04:',
+        'nvr5': 'a2:a2:a2:a2:05:',
+        'nvr6': 'a2:a2:a2:a2:06:'
     };
-    return macMap[nvrName.toLowerCase()] || 'a6:a6:a6:a6:06:';
+    return macMap[nvrName.toLowerCase()] || 'a2:a2:a2:a2:07:';
 }
 
 // Function to generate camera configuration
@@ -194,6 +195,7 @@ function generateCameraConfig(cameraNum, channelInfo, basePort, macPrefix) {
 
 // Function to generate docker-compose
 function generateDockerCompose(cameraCount, startingIP, nvrName) {
+    const macPrefix = getMACPrefix(nvrName);
     let compose = `version: '3.8'
 
 services:
@@ -201,10 +203,14 @@ services:
 
     for (let i = 1; i <= cameraCount; i++) {
         const ipAddress = `192.168.6.${startingIP + i - 1}`;
+        const hexNum = i.toString(16).padStart(2, '0');
+        const macAddress = `${macPrefix}${hexNum}`;
+        
         compose += `  ${nvrName}-camera${i}:
     image: onvif-server
     container_name: onvif-${nvrName}-camera${i}
     build: .
+    mac_address: ${macAddress}
     networks:
       onvif-test_onvif_net:
         ipv4_address: ${ipAddress}

@@ -1,11 +1,11 @@
 onvif:
-  - mac: a3:a3:a3:a3:03:1c
+  - mac: a2:a2:a2:a2:03:1c
     ports:
       server: 8328
       rtsp: 8554
       snapshot: 8580
     name: NVR3-Camera-28
-    uuid: a3dc7c19-2cf3-4cef-80d4-83e240457db3
+    uuid: 3e6f175b-247b-49d6-9ef2-723d6f33ace9
     highQuality:
       rtsp: /cam/realmonitor?channel=28&subtype=0&unicast=true&proto=Onvif
       snapshot: /onvif/snapshot?channel=28&subtype=0

@@ -17,10 +17,25 @@ Date.prototype.isDstObserved = function() {
 
 function getIpAddressFromMac(macAddress) {
     let networkInterfaces = os.networkInterfaces();
-    for (let interface in networkInterfaces)
-        for (let network of networkInterfaces[interface])
-            if (network.family == 'IPv4' && network.mac.toLowerCase() == macAddress.toLowerCase())
+    
+    // In Docker containers, the MAC address might not match, so try to get the first non-loopback IPv4 address
+    for (let interface in networkInterfaces) {
+        for (let network of networkInterfaces[interface]) {
+            if (network.family == 'IPv4' && !network.internal && network.address !== '127.0.0.1') {
                 return network.address;
+            }
+        }
+    }
+    
+    // Fallback to original MAC matching logic
+    for (let interface in networkInterfaces) {
+        for (let network of networkInterfaces[interface]) {
+            if (network.family == 'IPv4' && network.mac.toLowerCase() == macAddress.toLowerCase()) {
+                return network.address;
+            }
+        }
+    }
+    
     return null;
 }
 
